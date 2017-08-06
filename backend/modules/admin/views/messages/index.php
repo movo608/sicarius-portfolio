@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'email:email',
             'text',
-            'seen',
+            //'seen',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
@@ -36,8 +36,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <script type="text/javascript">
     
-    $(function() {
-        
+    $(function() {   
+
         $.post('messages/api', function(data) {
             $('nav .dropdown a.dropdown-toggle').html('Administration (0) <b class="caret"></b>');
             $('nav .dropdown .message a').html('Messages (0)');

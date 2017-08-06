@@ -61,8 +61,12 @@ class SiteController extends Controller
     public function actionIndex() {
 
         if (!Yii::$app->user->isGuest) {
+
             return $this->redirect(['/admin']);
         } else {
+
+            Yii::$app->session->setFlash('error', 'You are not authorized to access this part of the website.');
+
             return $this->redirect(['login']);
         }
 
