@@ -7,10 +7,11 @@ use Yii;
 /**
  * This is the model class for table "messages".
  *
- * @property int $id
+ * @property integer $id
  * @property string $name
  * @property string $email
  * @property string $text
+ * @property integer $seen
  */
 class Messages extends \yii\db\ActiveRecord
 {
@@ -29,6 +30,7 @@ class Messages extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'email', 'text'], 'required'],
+            [['seen'], 'integer'],
             [['name', 'email'], 'string', 'max' => 28],
             [['text'], 'string', 'max' => 256],
         ];
@@ -43,7 +45,8 @@ class Messages extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'email' => 'Email',
-            'text' => 'Message',
+            'text' => 'Text',
+            'seen' => 'Seen',
         ];
     }
 }

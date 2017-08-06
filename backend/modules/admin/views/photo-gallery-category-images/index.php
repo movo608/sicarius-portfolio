@@ -25,12 +25,23 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'category_id',
+            'category_id' => [
+                'attribute' => 'category_id',
+                'value' => function ($value) {
+                    return \common\models\PhotoGalleryCategories::find()->where(['id' => $value->category_id])->one() ? \common\models\PhotoGalleryCategories::find()->where(['id' => $value->category_id])->one()->name : 'No category. Please set.';
+                }
+            ],
+
             'name',
             'description',
-            'image',
-            // 'is_featured',
+
+            'image' => [
+                'attribute' => 'image',
+                'value' => 'image',
+                'format' => ['image', ['class' => 'col-md-6']]
+            ],
+
+            'is_featured',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

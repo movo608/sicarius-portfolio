@@ -19,6 +19,14 @@ return [
     ],
 
     'components' => [
+
+        /**
+        * Component used for uploading images to the server and saving the entry to the database.
+        */
+        'ImageUploadComponent' => [
+              'class' => 'app\components\ImageUploadComponent',
+        ],
+
         'request' => [
             'csrfParam' => '_csrf-backend',
         ],

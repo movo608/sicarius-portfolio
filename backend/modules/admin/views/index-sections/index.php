@@ -25,10 +25,20 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'name',
-            'text',
-            'image',
+
+            'text' => [
+                'attribute' => 'text',
+                'value' => function($value) {
+                    return substr($value->text, 0, 70) . '...';
+                }
+            ],
+
+            'image' => [
+                'value' => 'image',
+                'attribute' => 'image',
+                'format' => ['image', ['class' => 'col-md-5']]
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

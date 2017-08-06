@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\modules\admin\models\MessagesSearch */
+/* @var $model backend\modules\admin\models\MessagesSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -22,6 +22,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'email') ?>
 
     <?= $form->field($model, 'text') ?>
+
+    <?= $form->field($model, 'seen') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

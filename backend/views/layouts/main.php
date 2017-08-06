@@ -11,7 +11,10 @@ use yii\widgets\Breadcrumbs;
 use common\widgets\Alert;
 
 AppAsset::register($this);
+
+$new_messages_count = \common\models\Messages::find()->where(['seen' => (int) 0])->count();
 ?>
+
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
@@ -30,17 +33,19 @@ AppAsset::register($this);
     <?php
     NavBar::begin([
         'brandLabel' => 'My Company',
-        'brandUrl' => Yii::$app->homeUrl,
+        'brandUrl' => Yii::$app->homeUrl . 'admin',
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-    ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
+        $menuItems = [
+            ['label' => 'Home', 'url' => ['/admin']],
+            ['label' => 'Frontend', 'url' => ['/../../frontend/web']]
+        ];
+
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
@@ -49,6 +54,19 @@ AppAsset::register($this);
             )
             . Html::endForm()
             . '</li>';
+
+        $menuItems[] = [
+            'label' => 'Administration' . ' (' . $new_messages_count . ')',
+            'items' => [
+                ['label' => 'Index Sections', 'url' => ['/admin/index-sections']],
+                '<li class="divider"></li>',
+                ['label' => 'Messages' . ' (' . $new_messages_count . ')', 'url' => ['/admin/messages'], 'options' => ['class' => 'message']],
+                '<li class="divider"></li>',
+                ['label' => 'Photo Categories', 'url' => ['/admin/photo-gallery-categories']],
+                '<li class="divider"></li>',
+                ['label' => 'Photo Categories :: images', 'url' => ['/admin/photo-gallery-category-images']],
+            ]
+        ];
     }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],

@@ -4,7 +4,7 @@ namespace app\modules\admin\controllers;
 
 use Yii;
 use common\models\Messages;
-use app\modules\admin\models\MessagesSearch;
+use backend\modules\admin\models\MessagesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -120,5 +120,17 @@ class MessagesController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    public function actionApi() {
+
+        $messages_model = Messages::find()->where(['seen' => (int) 0])->all();
+
+        foreach ($messages_model as $message) {
+            $message->seen = 1;
+            $message->save();
+        }
+
+        return json_encode('API successfully called.');
     }
 }

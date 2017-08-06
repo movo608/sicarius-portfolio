@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $model common\models\PhotoGalleryCategories */
 
 $this->title = 'Create Photo Gallery Categories';
-$this->params['breadcrumbs'][] = ['label' => 'Photo Gallery Categories', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Photo Gallery Categories', 'url' => ['/admin/photo-gallery-categories']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="photo-gallery-categories-create">

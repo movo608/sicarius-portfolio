@@ -54,13 +54,18 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays homepage.
-     *
-     * @return string
-     */
-    public function actionIndex()
-    {
-        return $this->render('index');
+    * Index action.
+    *
+    * @return mixed
+    */
+    public function actionIndex() {
+
+        if (!Yii::$app->user->isGuest) {
+            return $this->redirect(['/admin']);
+        } else {
+            return $this->redirect(['login']);
+        }
+
     }
 
     /**
@@ -70,13 +75,14 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+        // if user is NOT a guest
         if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+            return $this->redirect(['/admin']);
         }
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            return $this->redirect(['site/login']);
         } else {
             return $this->render('login', [
                 'model' => $model,
@@ -93,6 +99,6 @@ class SiteController extends Controller
     {
         Yii::$app->user->logout();
 
-        return $this->goHome();
+        return $this->redirect(['site/login']);
     }
 }

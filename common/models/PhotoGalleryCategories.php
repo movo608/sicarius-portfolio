@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "photo_gallery_categories".
@@ -29,7 +30,7 @@ class PhotoGalleryCategories extends \yii\db\ActiveRecord
         return [
             [['name', 'image'], 'required'],
             [['name'], 'string', 'max' => 56],
-            [['image'], 'string', 'max' => 512],
+            [['image'], 'image', 'skipOnEmpty' => false, 'maxSize' => 1024 * 1024 * 6, 'extensions' => 'png, jpg'],
         ];
     }
 

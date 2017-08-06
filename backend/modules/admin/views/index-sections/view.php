@@ -31,7 +31,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'text',
-            'image',
+
+            'image' => [
+                'attribute' => 'image',
+                'format' => ['image', ['class' => 'col-md-4']]
+            ]
         ],
     ]) ?>
 

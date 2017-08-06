@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model common\models\PhotoGalleryCategories */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Photo Gallery Categories', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Photo Gallery Categories', 'url' => ['/admin/photo-gallery-categories']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="photo-gallery-categories-view">
@@ -30,7 +30,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'name',
-            'image',
+
+            'image' => [
+                'attribute' => 'image',
+                'value' => '../' . $model->image,
+                'format' => ['image', ['class' => 'col-md-6']],
+            ],
         ],
     ]) ?>
 

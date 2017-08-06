@@ -2,6 +2,8 @@
 
 namespace app\modules\admin;
 
+use common\models\Messages;
+
 /**
  * admin module definition class
  */

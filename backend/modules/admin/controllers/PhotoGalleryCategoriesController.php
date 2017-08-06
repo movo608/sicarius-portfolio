@@ -8,6 +8,11 @@ use app\modules\admin\models\PhotoGalleryCategoriesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+/**
+* Component used to upload an image to the server
+*/
+use backend\components\ImageUploadComponent;
 
 /**
  * PhotoGalleryCategoriesController implements the CRUD actions for PhotoGalleryCategories model.
@@ -65,8 +70,24 @@ class PhotoGalleryCategoriesController extends Controller
     {
         $model = new PhotoGalleryCategories();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+
+            $model->image = UploadedFile::getInstance($model, 'image');
+
+            // if the image can be uploaded, redirect to view file and display flash message ...
+            if (ImageUploadComponent::upload($model)) {
+                Yii::$app->session->setFlash('success', 'Image uploaded. Category added.');
+
+                return $this->redirect(['view', 'id' => $model->id]);
+            // ... else display error flash message and redisplay create page
+            } else {
+                Yii::$app->session->setFlash('error', 'Proccess could not be successfully completed.');
+
+                return $this->render('create', [
+                    'model' => $model
+                ]);
+            }
+
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -84,8 +105,22 @@ class PhotoGalleryCategoriesController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+
+            $model->image = UploadedFile::getInstance($model, 'image');
+
+            if (Yii::$app->ImageUploadComponent->upload($model)) {
+                Yii::$app->session->setFlash('success', 'Changes have been saved.');
+
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                Yii::$app->session->setFlash('error', 'Proccess could not be successfully completed.');
+
+                return $this->render('update', [
+                    'model' => $model
+                ]);
+            }
+
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -121,4 +156,6 @@ class PhotoGalleryCategoriesController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    
 }

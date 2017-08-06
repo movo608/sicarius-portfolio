@@ -29,10 +29,18 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
+
             'category_id',
+
             'name',
             'description',
-            'image',
+
+            'image' => [
+                'attribute' => 'image',
+                'value' => '../' . $model->image,
+                'format' => ['image', ['class' => 'col-md-6']]
+            ],
+
             'is_featured',
         ],
     ]) ?>

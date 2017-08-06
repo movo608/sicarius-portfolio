@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\admin\models;
+namespace backend\modules\admin\models;
 
 use Yii;
 use yii\base\Model;
@@ -8,7 +8,7 @@ use yii\data\ActiveDataProvider;
 use common\models\Messages;
 
 /**
- * MessagesSearch represents the model behind the search form of `common\models\Messages`.
+ * MessagesSearch represents the model behind the search form about `common\models\Messages`.
  */
 class MessagesSearch extends Messages
 {
@@ -18,7 +18,7 @@ class MessagesSearch extends Messages
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id', 'seen'], 'integer'],
             [['name', 'email', 'text'], 'safe'],
         ];
     }
@@ -60,6 +60,7 @@ class MessagesSearch extends Messages
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'seen' => $this->seen,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])

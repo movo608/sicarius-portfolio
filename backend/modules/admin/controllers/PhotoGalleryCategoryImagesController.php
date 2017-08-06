@@ -8,6 +8,9 @@ use app\modules\admin\models\PhotoGalleryCategoryImagesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\modules\admin\models\UploadForm;
+use backend\components\ImageUploadComponent;
+use yii\web\UploadedFile;
 
 /**
  * PhotoGalleryCategoryImagesController implements the CRUD actions for PhotoGalleryCategoryImages model.
@@ -65,8 +68,24 @@ class PhotoGalleryCategoryImagesController extends Controller
     {
         $model = new PhotoGalleryCategoryImages();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+       if ($model->load(Yii::$app->request->post())) {
+
+            $model->image = UploadedFile::getInstance($model, 'image');
+
+            // if the image can be uploaded, redirect to view file and display flash message ...
+            if (ImageUploadComponent::upload($model)) {
+                Yii::$app->session->setFlash('success', 'Image uploaded. Category added.');
+
+                return $this->redirect(['view', 'id' => $model->id]);
+            // ... else display error flash message and redisplay create page
+            } else {
+                Yii::$app->session->setFlash('error', 'Proccess could not be successfully completed.');
+
+                return $this->render('create', [
+                    'model' => $model
+                ]);
+            }
+
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -84,8 +103,24 @@ class PhotoGalleryCategoryImagesController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+
+            $model->image = UploadedFile::getInstance($model, 'image');
+
+            // if the image can be uploaded, redirect to view file and display flash message ...
+            if (ImageUploadComponent::upload($model)) {
+                Yii::$app->session->setFlash('success', 'Image uploaded. Category added.');
+
+                return $this->redirect(['view', 'id' => $model->id]);
+            // ... else display error flash message and redisplay create page
+            } else {
+                Yii::$app->session->setFlash('error', 'Proccess could not be successfully completed.');
+
+                return $this->render('update', [
+                    'model' => $model
+                ]);
+            }
+
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -121,4 +156,5 @@ class PhotoGalleryCategoryImagesController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    
 }
