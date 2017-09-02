@@ -48,6 +48,7 @@ class PhotoGalleryCategories extends \yii\db\ActiveRecord
 
     /**
     * @scenarios
+    * Scenarios handler
     */
     public function scenarios() {
         $scenarios = parent::scenarios();

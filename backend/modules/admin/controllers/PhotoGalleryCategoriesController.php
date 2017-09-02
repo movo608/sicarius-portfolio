@@ -15,6 +15,11 @@ use yii\web\UploadedFile;
 use backend\components\ImageUploadComponent;
 
 /**
+* Component uset to update database entries
+*/
+use backend\components\EntryUpdateComponent;
+
+/**
  * PhotoGalleryCategoriesController implements the CRUD actions for PhotoGalleryCategories model.
  */
 class PhotoGalleryCategoriesController extends Controller
@@ -66,7 +71,7 @@ class PhotoGalleryCategoriesController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate() 
     {
         // create new model, based on the 'create' scenario
         $model = new PhotoGalleryCategories(['scenario' => 'create']);
@@ -111,19 +116,24 @@ class PhotoGalleryCategoriesController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
 
-            $model->image = UploadedFile::getInstance($model, 'image');
+            if ($model->image) {
+                $model->image = UploadedFile::getInstance($model, 'image');
 
-            if (Yii::$app->ImageUploadComponent->upload($model)) {
-                Yii::$app->session->setFlash('success', 'Changes have been saved.');
+                if (Yii::$app->EntryUpdateComponent->update($model)) {
+                    Yii::$app->session->setFlash('success', 'Changes have been saved.');
 
-                return $this->redirect(['view', 'id' => $model->id]);
+                    return $this->redirect(['view', 'id' => $model->id]);
+                } else {
+                    Yii::$app->session->setFlash('error', 'Proccess could not be successfully completed.');
+
+                    return $this->render('update', [
+                        'model' => $model
+                    ]);
+                }
             } else {
-                Yii::$app->session->setFlash('error', 'Proccess could not be successfully completed.');
-
-                return $this->render('update', [
-                    'model' => $model
-                ]);
-            }
+                $model->save();
+                return $this->redirect(['view', 'id' => $model->id]);
+            }            
 
         } else {
             return $this->render('update', [

@@ -2,6 +2,7 @@
 
 namespace app\modules\admin;
 
+use Yii;
 use common\models\Messages;
 
 /**
@@ -22,5 +23,6 @@ class Module extends \yii\base\Module
         parent::init();
 
         // custom initialization code goes here
+        Yii::$app->session->setFlash('success', 'MERE BA');
     }
 }

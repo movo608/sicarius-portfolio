@@ -28,6 +28,13 @@ return [
         ],
 
         /**
+        * Component used for updating database entries
+        */
+        'EntryUpdateComponent' => [
+            'class' => 'app\components\EntryUpdateComponent'
+        ],
+
+        /**
         * Component used for main layout helper numbers.
         */
         'MainLayoutComponent' => [
