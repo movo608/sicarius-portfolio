@@ -6,6 +6,9 @@ use Yii;
 use yii\base\Component;
 use yii\base\InvalidConfigException;
 
+/**
+* Component used to upload photos into the @root/uploads folder.
+*/
 class ImageUploadComponent extends Component {
 
     /**
@@ -31,7 +34,7 @@ class ImageUploadComponent extends Component {
             * Create the database model.
             */
             $imageBasePath = dirname(Yii::$app->basePath, 1) . '\uploads\\';
-            $imageData = 'img' . $model->image->baseName . '.' . $model->image->extension;
+            $imageData = 'img' . preg_replace('/\s+/', '', $model->image->baseName) . '.' . $model->image->extension;
             $imageDatabaseEntryPath = '../../../uploads/';
 
             $modelImageDatabaseEntry = $imageDatabaseEntryPath . $time . $imageData;

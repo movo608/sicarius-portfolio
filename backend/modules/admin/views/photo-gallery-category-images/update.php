@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model common\models\PhotoGalleryCategoryImages */
 
 $this->title = 'Update Photo Gallery Category Images: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Photo Gallery Category Images', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Photo Gallery Category Images', 'url' => ['/admin/photo-gallery-category-images'']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

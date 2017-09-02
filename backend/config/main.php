@@ -24,7 +24,21 @@ return [
         * Component used for uploading images to the server and saving the entry to the database.
         */
         'ImageUploadComponent' => [
-              'class' => 'app\components\ImageUploadComponent',
+            'class' => 'app\components\ImageUploadComponent'
+        ],
+
+        /**
+        * Component used for main layout helper numbers.
+        */
+        'MainLayoutComponent' => [
+            'class' => 'app\components\MainLayoutComponent'
+        ],
+
+        /**
+        * Component used for getting and manipulating the URL.
+        */
+        'UrlManipulationComponent' => [
+            'class' => 'app\components\GetUrlComponent'
         ],
 
         'request' => [

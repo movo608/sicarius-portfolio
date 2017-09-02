@@ -9,10 +9,13 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use common\widgets\Alert;
+use backend\components\MainLayoutComponent;
 
 AppAsset::register($this);
 
-$new_messages_count = \common\models\Messages::find()->where(['seen' => (int) 0])->count();
+$new_messages_count     = MainLayoutComponent::notificationNumbers();
+$catPhotosNumbers       = MainLayoutComponent::categoriesPhotosNumbers();
+$indexSectionsNumber    = MainLayoutComponent::indexSectionsNumbers();
 ?>
 
 <?php $this->beginPage() ?>
@@ -56,15 +59,15 @@ $new_messages_count = \common\models\Messages::find()->where(['seen' => (int) 0]
             . '</li>';
 
         $menuItems[] = [
-            'label' => 'Administration' . ' (' . $new_messages_count . ')',
+            'label' => 'Administration' . ' (' . $new_messages_count . ')', 'options' => ['class' => 'message-label'],
             'items' => [
-                ['label' => 'Index Sections', 'url' => ['/admin/index-sections']],
+                ['label' => 'Index Sections' . ' (' . $indexSectionsNumber . ')', 'url' => ['/admin/index-sections']],
                 '<li class="divider"></li>',
                 ['label' => 'Messages' . ' (' . $new_messages_count . ')', 'url' => ['/admin/messages'], 'options' => ['class' => 'message']],
                 '<li class="divider"></li>',
-                ['label' => 'Photo Categories', 'url' => ['/admin/photo-gallery-categories']],
+                ['label' => 'Photo Categories (' . $catPhotosNumbers['categoriesNumber'] . ')', 'url' => ['/admin/photo-gallery-categories']],
                 '<li class="divider"></li>',
-                ['label' => 'Photo Categories :: images', 'url' => ['/admin/photo-gallery-category-images']],
+                ['label' => 'Category Images (' . $catPhotosNumbers['photosNumber'] . ')', 'url' => ['/admin/photo-gallery-category-images']],
             ]
         ];
     }

@@ -30,7 +30,8 @@ class IndexSections extends \yii\db\ActiveRecord
         return [
             [['name', 'text', 'image'], 'required'],
             [['name'], 'string', 'max' => 56],
-            [['text', 'image'], 'string', 'max' => 512],
+            [['text'], 'string', 'max' => 512],
+            [['image'], 'image', 'skipOnEmpty' => false, 'maxSize' => 1024 * 1024 * 6, 'extensions' => 'png, jpg'] 
         ];
     }
 

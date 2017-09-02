@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use backend\components\UrlManipulationComponent;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\admin\models\IndexSectionsSearch */
@@ -35,7 +36,13 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 
             'image' => [
-                'value' => 'image',
+                'value' => function($value) {
+                    if (UrlManipulationComponent::urlLastWord() == 'index') {
+                        return '../' . $value->image;
+                    } else {
+                        return $value->image;
+                    }
+                },
                 'attribute' => 'image',
                 'format' => ['image', ['class' => 'col-md-5']]
             ],
