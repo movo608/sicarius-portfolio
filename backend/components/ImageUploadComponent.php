@@ -18,7 +18,7 @@ class ImageUploadComponent extends Component {
         /**
         * If the $model->image field is not empty, proceed to uploading.
         */
-        if ($model->image) {
+        if (!empty($model->image)) {
 
             /**
             * Assign current local CMOS time.

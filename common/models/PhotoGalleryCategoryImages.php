@@ -33,7 +33,7 @@ class PhotoGalleryCategoryImages extends \yii\db\ActiveRecord
             [['category_id', 'name', 'description', 'image', 'is_featured'], 'required'],
             [['category_id', 'is_featured'], 'integer'],
             [['name', 'description'], 'string', 'max' => 56],
-            [['image'], 'string', 'max' => 512],
+            [['image'], 'image', 'skipOnEmpty' => false, 'maxSize' => 1024 * 1024 * 6, 'extensions' => 'png, jpg'],
         ];
     }
 

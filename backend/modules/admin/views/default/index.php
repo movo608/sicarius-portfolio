@@ -11,5 +11,7 @@ $this->title = 'Admin :: index';
 
     <div class="content">
         
+		<h1><?= Html::encode($this->title) ?></h1>
+
     </div>
 </div>

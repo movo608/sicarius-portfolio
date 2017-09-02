@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 04, 2017 at 07:28 PM
--- Server version: 10.1.19-MariaDB
--- PHP Version: 7.0.13
+-- Generation Time: Aug 06, 2017 at 12:11 PM
+-- Server version: 10.1.13-MariaDB
+-- PHP Version: 7.0.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -54,8 +54,16 @@ CREATE TABLE `messages` (
   `id` int(11) NOT NULL,
   `name` varchar(28) NOT NULL,
   `email` varchar(28) NOT NULL,
-  `text` varchar(256) NOT NULL
+  `text` varchar(256) NOT NULL,
+  `seen` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `messages`
+--
+
+INSERT INTO `messages` (`id`, `name`, `email`, `text`, `seen`) VALUES
+(1, 'sdfsa', 'sadf@gmail.com', 'sdfsfs', 1);
 
 -- --------------------------------------------------------
 
@@ -93,8 +101,8 @@ CREATE TABLE `photo_gallery_categories` (
 --
 
 INSERT INTO `photo_gallery_categories` (`id`, `name`, `image`) VALUES
-(1, 'Lorem Ipsum Dolor', 'http://placeholders.org/320x200'),
-(2, 'Color', 'http://placeholders.org/320x200');
+(22, 'dfas', '../../../uploads/1501962605imgLogo-01.png'),
+(23, 'loadfdsaf', '../../../uploads/1501963565imgLogo-01.png');
 
 -- --------------------------------------------------------
 
@@ -116,8 +124,7 @@ CREATE TABLE `photo_gallery_category_images` (
 --
 
 INSERT INTO `photo_gallery_category_images` (`id`, `category_id`, `name`, `description`, `image`, `is_featured`) VALUES
-(1, 1, 'Kurwa', 'Lorem ipsum dolor, consectetur adipiscing regae Cesare.', 'http://placeholders.org/320x200', 1),
-(2, 1, 'Kurwa', 'Lorem ipsum dolor, consectetur adipiscing regae Cesare.', 'http://placeholders.org/320x200', 0);
+(4, 23, 'asf', 'sdf', '../../../uploads/1501963944imgLogo-01.png', 1);
 
 -- --------------------------------------------------------
 
@@ -200,17 +207,17 @@ ALTER TABLE `index_sections`
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `photo_gallery_categories`
 --
 ALTER TABLE `photo_gallery_categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `photo_gallery_category_images`
 --
 ALTER TABLE `photo_gallery_category_images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `user`
 --

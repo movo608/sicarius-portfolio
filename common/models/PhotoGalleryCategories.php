@@ -45,4 +45,16 @@ class PhotoGalleryCategories extends \yii\db\ActiveRecord
             'image' => 'Image',
         ];
     }
+
+    /**
+    * @scenarios
+    */
+    public function scenarios() {
+        $scenarios = parent::scenarios();
+
+        $scenarios['create'] = ['name', 'image'];
+        $scenarios['update'] = ['name'];
+
+        return $scenarios;
+    }
 }

@@ -68,7 +68,8 @@ class PhotoGalleryCategoriesController extends Controller
      */
     public function actionCreate()
     {
-        $model = new PhotoGalleryCategories();
+        // create new model, based on the 'create' scenario
+        $model = new PhotoGalleryCategories(['scenario' => 'create']);
 
         if ($model->load(Yii::$app->request->post())) {
 
@@ -105,6 +106,9 @@ class PhotoGalleryCategoriesController extends Controller
     {
         $model = $this->findModel($id);
 
+        // set scenario as update
+        $model->scenario = 'update';
+
         if ($model->load(Yii::$app->request->post())) {
 
             $model->image = UploadedFile::getInstance($model, 'image');
@@ -138,7 +142,7 @@ class PhotoGalleryCategoriesController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['/admin/photo-gallery-categories']);
     }
 
     /**
