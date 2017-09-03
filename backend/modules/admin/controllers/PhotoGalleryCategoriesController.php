@@ -17,7 +17,7 @@ use backend\components\ImageUploadComponent;
 /**
 * Component uset to update database entries
 */
-use backend\components\EntryUpdateComponent;
+use backend\components\UpdateComponent;
 
 /**
  * PhotoGalleryCategoriesController implements the CRUD actions for PhotoGalleryCategories model.
@@ -119,7 +119,7 @@ class PhotoGalleryCategoriesController extends Controller
             if ($model->image) {
                 $model->image = UploadedFile::getInstance($model, 'image');
 
-                if (Yii::$app->EntryUpdateComponent->update($model)) {
+                if (Yii::$app->UpdateComponent->update($model)) {
                     Yii::$app->session->setFlash('success', 'Changes have been saved.');
 
                     return $this->redirect(['view', 'id' => $model->id]);

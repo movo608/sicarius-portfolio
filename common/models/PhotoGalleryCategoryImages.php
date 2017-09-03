@@ -51,4 +51,16 @@ class PhotoGalleryCategoryImages extends \yii\db\ActiveRecord
             'is_featured' => 'Is Featured',
         ];
     }
+
+    /**
+    * Scenarios
+    */
+    public function scenarios() {
+        $scenarios = parent::scenarios();
+
+        $scenarios['create'] = ['name', 'description', 'image', 'is_featured'];
+        $scenarios['update'] = ['description', 'name', 'is_featured'];
+
+        return $scenarios;
+    }
 }

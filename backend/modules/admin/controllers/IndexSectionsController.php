@@ -8,6 +8,8 @@ use app\modules\admin\models\IndexSectionsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+use backend\components\ImageUploadComponent;
 
 /**
  * IndexSectionsController implements the CRUD actions for IndexSections model.
@@ -63,7 +65,9 @@ class IndexSectionsController extends Controller
      */
     public function actionCreate()
     {
-        $model = new IndexSections();
+
+        // get new model and set scenario
+        $model = new IndexSections(['scenario' => 'create']);
 
         if ($model->load(Yii::$app->request->post())) {
 
@@ -71,7 +75,7 @@ class IndexSectionsController extends Controller
 
             // if the image can be uploaded, redirect to view file and display flash message ...
             if (ImageUploadComponent::upload($model)) {
-                Yii::$app->session->setFlash('success', 'Image uploaded. Category added.');
+                Yii::$app->session->setFlash('success', 'Index Section added.');
 
                 return $this->redirect(['view', 'id' => $model->id]);
             // ... else display error flash message and redisplay create page
@@ -100,21 +104,29 @@ class IndexSectionsController extends Controller
     {
         $model = $this->findModel($id);
 
+        // set scenario as update
+        $model->scenario = 'update';
+
         if ($model->load(Yii::$app->request->post())) {
 
-            $model->image = UploadedFile::getInstance($model, 'image');
+            if ($model->image) {
+                $model->image = UploadedFile::getInstance($model, 'image');
 
-            if (Yii::$app->ImageUploadComponent->upload($model)) {
-                Yii::$app->session->setFlash('success', 'Changes have been saved.');
+                if (Yii::$app->UpdateComponent->update($model)) {
+                    Yii::$app->session->setFlash('success', 'Changes have been saved.');
 
-                return $this->redirect(['view', 'id' => $model->id]);
+                    return $this->redirect(['view', 'id' => $model->id]);
+                } else {
+                    Yii::$app->session->setFlash('error', 'Proccess could not be successfully completed.');
+
+                    return $this->render('update', [
+                        'model' => $model
+                    ]);
+                }
             } else {
-                Yii::$app->session->setFlash('error', 'Proccess could not be successfully completed.');
-
-                return $this->render('update', [
-                    'model' => $model
-                ]);
-            }
+                $model->save();
+                return $this->redirect(['view', 'id' => $model->id]);
+            }            
 
         } else {
             return $this->render('update', [
@@ -133,7 +145,7 @@ class IndexSectionsController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['/admin/index-sections']);
     }
 
     /**

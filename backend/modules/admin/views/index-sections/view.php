@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model common\models\IndexSections */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Index Sections', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Index Sections', 'url' => ['/admin/index-sections']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="index-sections-view">
@@ -34,7 +34,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'image' => [
                 'attribute' => 'image',
-                'format' => ['image', ['class' => 'col-md-4']]
+                'format' => ['image', ['class' => 'col-md-4']],
+                'value' => '../' . $model->image
             ]
         ],
     ]) ?>

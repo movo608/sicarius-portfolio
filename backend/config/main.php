@@ -30,8 +30,8 @@ return [
         /**
         * Component used for updating database entries
         */
-        'EntryUpdateComponent' => [
-            'class' => 'app\components\EntryUpdateComponent'
+        'UpdateComponent' => [
+            'class' => 'app\components\UpdateComponent'
         ],
 
         /**

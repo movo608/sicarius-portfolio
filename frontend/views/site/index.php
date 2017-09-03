@@ -114,8 +114,12 @@ $this->registerCssFile("@web/app-assets/landing/css/main.css", [
             <div class="gallery">
                 <?php foreach ($featuredImages as $photo) { ?>
 
+                    <?php
+                        $ok = '../../' . ltrim($photo->image, './');
+                    ?>
+
                     <article class="from-left">
-                        <a href="<?= $photo->image ?>" class="image fit"><img src="<?= $photo->image ?>" title="<?= $photo->name ?>" alt="" /></a>
+                        <a href="<?= $ok ?>" class="image fit"><img src="<?=  $ok ?>" title="<?= $photo->name ?>" alt="" /></a>
                     </article>
 
                 <?php } ?>

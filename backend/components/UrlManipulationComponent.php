@@ -29,7 +29,7 @@ class UrlManipulationComponent extends Component {
 		$url = UrlManipulationComponent::getUrl();
 
 		preg_match("/[^\/]+$/", $url, $matches);
-        $last_word = $matches[0];
+        $last_word = $matches;
 
         return $last_word;
 	}

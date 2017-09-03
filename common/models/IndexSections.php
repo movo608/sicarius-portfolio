@@ -29,7 +29,7 @@ class IndexSections extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'text', 'image'], 'required'],
-            [['name'], 'string', 'max' => 56],
+            [['name', 'unique'], 'string', 'max' => 56],
             [['text'], 'string', 'max' => 512],
             [['image'], 'image', 'skipOnEmpty' => false, 'maxSize' => 1024 * 1024 * 6, 'extensions' => 'png, jpg'] 
         ];
@@ -46,5 +46,14 @@ class IndexSections extends \yii\db\ActiveRecord
             'text' => 'Text',
             'image' => 'Image',
         ];
+    }
+
+    public function scenarios() {
+        $scenarios = parent::scenarios();
+
+        $scenarios['create'] = ['name', 'text', 'image'];
+        $scenarios['update'] = ['text'];
+
+        return $scenarios;
     }
 }

@@ -9,7 +9,7 @@ use yii\base\InvalidConfigException;
 /**
 * Component used to update entries from the database
 */
-class EntryUpdateComponent extends Component {
+class UpdateComponent extends Component {
 
     /**
     * Public function that can be accessed by any class through component call.
@@ -17,15 +17,10 @@ class EntryUpdateComponent extends Component {
     * @return bool.
     */
 	public function update($model) {
-
-        // name attribute save handler
-        $onlySaveName = false;
-
         /**
         * If the $model->image field is not empty, proceed to uploading.
         */
         if ($model->image) {
-
             /**
             * Assign current local CMOS time.
             */
@@ -55,18 +50,17 @@ class EntryUpdateComponent extends Component {
             } else {
             	return false;
             }
-
         } else {
-            // if image field is empty, name save handler is true
-            $onlySaveName = true;
-        }
+            // if the image field is empty, assign the field with the database entry
+            $model->image = $model::classname()::find()->where(['id' => $model->id])->one()->image;
 
-        // save only the name of the entry if the handler is true
-        if ($onlySaveName === true) {
-            $model->save(true, ['name']);
-            return true;
+            // try to save the entry, updating the database record
+            if ($model->save(false)) {
+                return true;
+            } else {
+                return false;
+            }
         }
-
     }
 
 }
