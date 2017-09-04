@@ -34,7 +34,9 @@ class ImageUploadComponent extends Component {
             * Create the database model.
             */
             $imageBasePath = dirname(Yii::$app->basePath, 1) . '\uploads\\';
+
             $imageData = 'img' . preg_replace('/\s+/', '', $model->image->baseName) . '.' . $model->image->extension;
+            
             $imageDatabaseEntryPath = '../../../uploads/';
 
             $modelImageDatabaseEntry = $imageDatabaseEntryPath . $time . $imageData;

@@ -143,7 +143,7 @@ class PhotoGalleryCategoryImagesController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['/admin/photo-gallery-category-images']);
     }
 
     /**
