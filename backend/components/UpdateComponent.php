@@ -4,7 +4,6 @@ namespace app\components;
 
 use Yii;
 use yii\base\Component;
-use yii\base\InvalidConfigException;
 
 /**
 * Component used to update entries from the database
